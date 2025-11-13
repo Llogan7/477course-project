@@ -1,230 +1,163 @@
-# NBA Player Salary vs Performance (2022–2023 Season)
-
-## Contributors
-- **Jezzy Jia (ziyijia2@illinois.edu)**  
-- **Logan Li (jiajun7@illinois.edu)**  
-
----
-
-# Summary
-This project examines the relationship between NBA player salaries and their on-court performance during the **2022–2023 NBA season**. We integrate two independently authored datasets from Kaggle—one containing player performance statistics and another containing multi-season salary data.
-
-The project investigates:
-- Whether salary aligns with performance  
-- Which players are undervalued or overvalued  
-- Performance-efficiency metrics (salary per point, salary per minute, etc.)  
-- Correlation between financial compensation and production  
-
-This project follows the complete IS477 data lifecycle:
-1. Data discovery  
-2. Ethical review  
-3. Acquisition  
-4. Storage & organization (DuckDB)  
-5. Extraction & enrichment  
-6. Integration  
-7. Quality assessment  
-8. Cleaning  
-9. Workflow automation & provenance  
-10. Reproducibility  
-11. Metadata & documentation  
+# 🏀 NBA Salary vs. Performance (2022–2023)
+**IS 477 – Final Project**  
+**Contributors:**  
+- **Jezzy Jia (ziyijia2)** – Data acquisition, licensing review, cleaning, integration workflow  
+- **Logan Li (jiajun7)** – Feature engineering, preliminary analysis, documentation  
 
 ---
 
-# Data Profile
+## 📌 Project Summary
+This project analyzes the relationship between **NBA player salaries** and **on-court performance** for the **2022–2023 season**, using two independently authored Kaggle datasets.  
+Our goal is to answer:
 
-## Dataset 1 — NBA Player Stats (2022–2023)
-**Source:** https://www.kaggle.com/datasets/bryanchungweather/nba-players-data-2022-2023  
-**License:** **CC BY 4.0**  
+- Do salaries align with performance?  
+- Which players are undervalued or overvalued?  
+- How do efficiency metrics relate to salary?  
+- What correlations exist between production and compensation?  
 
-### Contents
-- Player name  
-- Team  
-- PTS / AST / REB / STL / BLK  
-- Shooting splits  
-- Per-game + advanced stats  
-
-### Notes
-- Fully open under CC BY 4.0  
-- Public athlete performance data (no privacy issues)  
-- Citable and reusable  
+The project follows the full **IS 477 Data Lifecycle**, including acquisition, profiling, cleaning, enrichment, integration, quality assessment, reproducibility, and workflow automation.
 
 ---
 
-## Dataset 2 — NBA Player Salaries (2020–2025)
-**Source:** https://www.kaggle.com/datasets/omarsobhy14/nba-players-salaries  
-**License:** **Other (no explicit license)**  
+---
 
-### Legal/Ethical Requirements
-- Kaggle "Other" license → **no redistribution allowed**  
-- Raw salary CSV **is NOT included in this repo**  
-- Instead, instructions + scripts provided  
-- Only **derived data** stored in the repo  
+## 📊 Datasets
+
+### **1. NBA Player Statistics (2022–2023)**
+- Source: Kaggle  
+- License: **CC BY 4.0** (redistributable with attribution)  
+- Clean dataset includes standardized stat names and 29+ performance metrics.
+
+### **2. NBA Salaries (Multi-Season Dataset)**
+- Source: Kaggle  
+- License: **Unspecified (“Other”) with no details provided**  
+- **Cannot redistribute raw data**  
+- We only provide:
+  - Kaggle download link  
+  - Cleaning instructions  
+  - Derived, license-safe tables  
 
 ---
 
-## Schema Differences
-| Concept | Stats Dataset | Salary Dataset |
-|--------|----------------|----------------|
-| Player Name | Varies, inconsistent | Varies, inconsistent |
-| Season Format | "2022-23" | "2022/2023", "2022-2023" |
-| Team Names | Abbreviations | Full names or abbreviations |
-| Salary | N/A | "$12,450,000" → messy formatting |
-
-This required extensive cleaning and harmonization.
+## 🔐 Ethical & Legal Compliance
+- Salary dataset **has no explicit license**, so raw files are **not included**.  
+- Only redistribution-safe outputs (cleaned numeric salary column, merged values, derivative summaries) are included.  
+- This aligns with **IS 477 legal & ethical requirements**.
 
 ---
 
-# Data Quality Summary
+## 🧼 Data Cleaning & Standardization
+Performed using **OpenRefine** + Python.
 
-### Accuracy
-- Player names standardized (lowercase, trimmed)
-- Clustering in OpenRefine used to fix spelling variations
-- Team names normalized
-- Salary values converted from strings to numerics
+### Key Cleaning Steps (Performance Dataset)
+- Renamed all columns for readability  
+- Standardized capitalization and spacing  
+- Fixed missing and percentage fields (0 attempts → 0%)  
+- Normalized team abbreviations  
+- Addressed players with multiple teams:
+  - Kept the row with **highest Games Played (GP)**  
 
-### Completeness
-- Missing salary values identified  
-- Missing stat rows removed  
-- Blank fields detected with facets (OpenRefine)
+### Key Cleaning Steps (Salary Dataset)
+- Removed future-season columns  
+- Normalized Player Name formatting  
+- Converted salary strings (`"$13,450,000"`) → integers  
+- Removed all irrelevant ID columns  
 
-### Consistency
-- Season normalized to "2022-2023"  
-- Data types standardized  
-- Casing and formatting cleaned  
+### Player Name Standardization
+Examples:
+- `A.J. Lawson` → `AJ Lawson`  
+- `Karl-Anthony Towns` → `Karl Anthony Towns`  
+- Unified periods, hyphens, and spacing  
 
-### Timeliness
-- All data corresponds to the same season  
-- No outdated or mixed-season rows kept  
-
-A full detailed quality report is in **StatusReport.md**.
-
----
-
-# Cleaning Process
-
-## Using OpenRefine
-Steps performed:
-1. **Text Faceting** — detect inconsistent names  
-2. **Transform** → lowercase(), trim(), remove extra spaces  
-3. **Clustering** → Fingerprint, Metaphone3, Levenshtein  
-4. **Salary cleaning**  
-   - Remove `$`  
-   - Remove commas  
-   - Convert to integer  
-5. **Missing values**  
-   - Facet → blank / non-blank  
-6. Export cleaned CSV + JSON operation history  
-
-## Using DuckDB
-We use DuckDB as the main structured storage engine.
-
-### Loading data:
-
-```sql
-CREATE TABLE stats AS
-SELECT * FROM read_csv_auto('data/cleaned/nba_stats_2022_2023.csv');
-
-CREATE TABLE salaries AS
-SELECT * FROM read_csv_auto('data/cleaned/nba_salaries_2022_2023.csv');
-```
-
-### Integration:
-
-```sql
-SELECT *
-FROM stats s
-LEFT JOIN salaries sal
-ON lower(trim(s.player)) = lower(trim(sal.player))
-AND s.season = sal.season;
-```
+A reproducible **name_mapping.csv** will be included.
 
 ---
 
-# Data Integration
-### Main challenges
-- Name mismatches  
-- Different season formats  
-- Missing or zero salaries  
-- Duplicate partial matches  
+## 🔗 Data Integration (40% Complete)
+Challenges identified:
 
-### Results
-- 92% players successfully joined by cleaned player name  
-- Remaining unmatched rows handled manually or excluded  
-- Final integrated dataset includes:
-  - Stats  
-  - Salary  
-  - Derived value metrics  
+### **Schema Mismatches**
+- Name formats differ significantly  
+- Salary dataset contains missing values  
+- Some players appear in multiple rows (mid-season trades)  
 
----
+### **Join Key**
+- Final merge key: **Standardized Player Name + Season (2022–2023)**  
 
-# Findings
-*(To be filled later after final analysis)*  
-Example structure:
-- Salary vs performance correlation  
-- Top undervalued players  
-- Most overpaid players  
-- Team-level spending efficiency  
-- Visualizations  
+### **Next Steps**
+- Implement fuzzy matching (RapidFuzz)  
+- Finalize merged dataset  
+- Validate integrated row counts  
 
 ---
 
-# Future Work
-- Extend analysis to multi-season trends  
-- Apply ML models for salary prediction  
-- Include contextual variables such as injuries, minutes, team role  
-- Build interactive dashboards  
-- Expand advanced metrics (PER, WS/48, BPM, VORP)  
+## ⚙️ Planned Feature Engineering
+Metrics to be computed:
+
+### **Efficiency Metrics**
+- Points per minute  
+- Efficiency index: (PTS + AST + REB) normalized  
+- Shooting efficiency blend (FG%, 3P%, FT%)  
+
+### **Salary-Performance Metrics**
+- Salary per point  
+- Salary-adjusted efficiency  
+- Value Index (final formula to be determined)  
 
 ---
 
-# Reproducibility Instructions
+## 🧪 Data Quality Assessment
+Current findings:
 
-## Step 1 — Clone Repo
-```
-git clone https://github.com/<your-repo>.git
-cd nba-salary-performance
-```
-
-## Step 2 — Install Dependencies
-```
-pip install -r requirements.txt
-```
-
-## Step 3 — Download Raw Datasets
-**Due to license, raw salary data is NOT included.**
-
-Place files into:
-```
-data/raw/
-nba_stats_2022_2023.csv
-nba_player_salaries_raw.csv
-```
-
-## Step 4 — Run Cleaning Workflow
-```
-python workflow/run_cleaning.py
-```
-
-## Step 5 — Run Integration
-```
-python workflow/run_integration.py
-```
-
-## Step 6 — Run Analysis
-```
-python analysis/run_analysis.py
-```
-
-Outputs appear in:
-```
-output/
-```
+- Salary dataset contains missing salary values  
+- Performance dataset is mostly clean  
+- Multiple-team players required rule-based selection  
+- Advanced metrics (PER, WS, BPM) are not available  
+- No injury or contextual variables  
 
 ---
 
-# References
-- Bryan ChungWeather. *NBA Players Data 2022–2023.* Kaggle. CC BY 4.0  
-- Omar Sobhy. *NBA Players Salaries (2020–2025).* Kaggle.  
-- DuckDB Documentation.  
-- OpenRefine Documentation.
+## 🤖 Workflow Automation
+Files currently in progress:
+- `run_all.py` – executes end-to-end workflow  
+- `requirements.txt` – environment setup  
+
+Final automated workflow will:
+1. Load raw data  
+2. Clean datasets  
+3. Standardize names  
+4. Merge performance + salary  
+5. Generate derived metrics  
+6. Save final analytics dataset  
+
+---
+
+## 🔁 Reproducibility
+This repository provides:
+
+- **SHA256 hashes** for raw datasets  
+- **OpenRefine operation history**  
+- **Step-by-step setup in README**  
+- Instructions on how to re-download raw Kaggle data  
+- A deterministic automated pipeline (in progress)
+
+---
+
+## 🧩 Known Limitations
+- No stable player IDs across datasets  
+- Name standardization still risks mismatches  
+- Trades complicate per-player aggregation  
+- No advanced analytics metrics (PER, WS, RAPTOR)  
+- No contextual variables (injury, role, minutes restrictions)  
+- Automation scripts not yet finalized  
+- Raw salary data cannot be redistributed due to licensing  
+
+---
+
+## 📜 License
+This project is for **educational use** (IS 477).  
+- Performance dataset is CC BY 4.0  
+- Salary dataset raw files are **not redistributed** due to licensing ambiguity  
+- All derived outputs comply with fair-use principles  
+
 
