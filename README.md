@@ -63,3 +63,108 @@ https://uofi.app.box.com/folder/354747066623
 ### Summary Conclusion
 
 The Summary section of this project demonstrates the full alignment of our workflow with IS477’s emphasis on data ethics, licensing compliance, transparent cleaning, structured integration, reproducibility, and rigorous exploratory analysis. The investigation ultimately provides a data-grounded perspective on the salary–performance relationship in the NBA, revealing measurable gaps between compensation and on-court impact. The sections that follow elaborate on dataset profiles, quality assessments, analytic findings, and future work.
+
+## 2. Data Profile
+
+This project uses two independently authored datasets sourced from Kaggle: one containing detailed NBA player performance statistics for the 2022–2023 regular season and another containing multi-season salary information. Because the datasets originate from different authors, formats, and licensing schemes, they require careful assessment before cleaning, integration, and analysis. This section provides a comprehensive description of each dataset, its licensing constraints, structural characteristics, and the rationale guiding our curation decisions. The goal is to document not only what the data contains but also how its structure, permissions, and limitations shape the analytical workflow.
+
+### Dataset 1: NBA Player Performance (2022–2023)
+
+**Source:**  
+https://www.kaggle.com/datasets/bryanchungweather/nba-players-data-2022-2023  
+
+**License:**  
+Creative Commons Attribution 4.0 (CC BY 4.0) – redistribution permitted.
+
+**Storage Location in Repository:**  
+`data/raw/performance_2022_2023.csv`
+
+This dataset provides a comprehensive record of per-game performance statistics for players in the 2022–2023 NBA season. It includes variables describing scoring performance, shooting efficiency, playmaking, defensive contributions, and playing time. The dataset is relatively clean and structurally consistent, making it suitable as the foundational performance dataset in our analysis.
+
+#### Key Attributes and Schema Highlights
+
+The dataset includes the following categories of fields:
+
+- **Basic player identifiers**: name, position, age, team abbreviation  
+- **Game participation**: games played, games started, minutes per game  
+- **Scoring and shooting metrics**: field goals, three-point shooting, two-point shooting, free throws, shot attempts, and corresponding percentages  
+- **Advanced efficiency metrics**: effective field goal percentage  
+- **Rebounding and playmaking**: offensive rebounds, defensive rebounds, assists  
+- **Defensive activity**: steals, blocks  
+- **Possession-related metrics**: turnovers, personal fouls  
+- **Aggregate productivity**: points per game  
+
+Although the dataset is mostly consistent, profiling identified several issues that needed to be addressed prior to integration:
+
+- **Players traded mid-season** appear multiple times, each row tied to a different team.  
+- **Missing shooting percentages** occur for players who attempted zero shots in a category.  
+- **Variation in formatting** for player names, including punctuation and spacing differences.  
+- **Potential schema misalignment** with the salary dataset due to inconsistent naming conventions.
+
+### Ethical and Licensing Considerations
+
+Because the dataset is licensed under CC BY 4.0, redistribution is legally permissible as long as proper attribution is maintained. The dataset contains no personal or sensitive information; all fields correspond to publicly available sports statistics. As a result, the performance dataset is included directly within the repository.
+
+### Dataset 2: NBA Salaries (Multi-Season Dataset)
+
+**Source:**  
+https://www.kaggle.com/datasets/omarsobhy14/nba-players-salaries  
+
+**License:**  
+Kaggle “Other” License – no redistribution permitted.
+
+**Required Local Storage Path (Not Included in Repo):**  
+`data/raw/salaries.csv`
+
+This dataset provides salary values for NBA players across multiple seasons. It requires substantial cleaning and restructuring to isolate the salaries relevant to the 2022–2023 season. The dataset cannot be redistributed in raw form, so users must download it manually following the instructions in this README. All derived outputs, aggregated data, and visualizations built from the salary data are permissible to share.
+
+#### Structural and Content Characteristics
+
+The salary dataset includes:
+
+- **Player name** (not standardized across datasets)  
+- **Salary fields for multiple seasons**, requiring filtering  
+- **Contract values expressed as formatted currency strings**, such as "$34,250,000"  
+- **Incomplete or missing salary rows** for certain players  
+- **Multiple naming formats** including punctuation, initials, and suffixes  
+
+Due to these varying structures, the dataset required significantly more preprocessing than the performance dataset.
+
+### Legal and Ethical Constraints
+
+Because the dataset does not specify licensing terms permitting redistribution, IS477 guidelines classify it as restricted. Following these principles:
+
+- The raw salary dataset is **not included** in GitHub.  
+- The dataset is **not uploaded** to the Box folder.  
+- We instead provide:  
+  - A link to the Kaggle download page  
+  - Instructions for placing the dataset in the correct directory  
+  - Only derived output files generated through cleaning and transformation  
+
+This ensures full legal compliance.
+
+### Integration Dataset and Post-Cleaning Structure
+
+After cleaning the independent datasets using a combination of OpenRefine and Python transformations, we merged them into a unified dataset. This merged dataset aligns each player's performance metrics with their 2022–2023 salary information. The merged and enriched datasets are stored at:
+
+- `data/merged_data/merged_salary_stats.csv`  
+- `nba_salary_value_analysis/data/processed/final_dataset.csv`  
+
+The final dataset includes 36 variables, combining raw performance metrics, cleaned salary values, and engineered features. This dataset serves as the foundation for the analytical components of the project.
+
+### Documentation and Metadata
+
+To facilitate transparency and reproducibility, we provide:
+
+- **OpenRefine operation histories** documenting all cleaning steps:  
+  - `data/cleaned_data/Performance_history.json`  
+  - `data/cleaned_data/salaries_history.json`  
+
+- **A detailed Data Dictionary** describing each variable in the final dataset:  
+  `Data_Dictionary.md`
+
+This metadata ensures that every transformation, filter, and derivation is traceable and reproducible.
+
+### Summary
+
+The two datasets used in this study differ significantly in schema, licensing, structure, and data quality. The performance dataset is relatively clean and fully redistributed, while the salary dataset contains the majority of the complexity in terms of licensing restrictions, formatting inconsistencies, and structural noise. This section documents the careful data profiling and compliance-based handling necessary to prepare both datasets for integration. Together, they form a robust and ethically curated foundation for investigating the salary–performance relationship in the NBA.
