@@ -382,3 +382,64 @@ Teams such as Brooklyn and Memphis exhibited significantly above-average salary 
 ### Summary of Findings
 
 Overall, the findings show that while salary exhibits a moderate positive relationship with scoring, its correlation with broader efficiency measures is weak. Value-based metrics consistently identify low-salary players as the highest contributors per dollar spent, while several high-salary veterans produce relatively low returns. These results underscore the incomplete alignment between NBA salaries and on-court productivity and highlight the usefulness of efficiency-normalized value measures for understanding contract performance.
+
+## 5. Future Work
+
+While the present study provides a detailed examination of the relationship between NBA salaries and on-court performance during the 2022–2023 season, several methodological, analytical, and contextual extensions hold potential for deepening the insights derived from this dataset. Many of these directions address structural limitations in the available data, while others involve additional modeling or integration opportunities that go beyond the scope of the current project but would significantly enhance the robustness and generalizability of the findings.
+
+### Limitations of Current Analysis
+
+The primary limitation of the current analysis is its reliance on a single-season dataset. NBA salaries are determined by multi-year contracts, and performance fluctuates over time due to injuries, player development, role changes, and coaching strategies. As a result, a cross-sectional analysis of one season captures only part of the salary–performance misalignment. Furthermore, several advanced analytics metrics commonly used in modern basketball analysis (e.g., Win Shares, Player Efficiency Rating, RAPTOR, LEBRON, on/off splits) were not included in the provided datasets, limiting the comprehensiveness of the current evaluation of player value.
+
+Another limitation arises from the reliance on name-based merging. The lack of a universal identifier such as NBA.com’s player ID introduces a risk of mismatches or missed matches, even after extensive normalization. Though OpenRefine and careful inspection mitigate most issues, the process remains inherently sensitive to formatting changes. Additionally, the salary dataset includes only base salary and does not incorporate contract incentives, bonuses, or historical salary trends, which may influence perceived player value.
+
+### Extensions in Data Acquisition and Integration
+
+Several enhancements could strengthen the analytical foundation of the project:
+
+- **Multi-season integration:** Extending the dataset to cover multiple years would allow for longitudinal analysis of contract efficiency, accounting for aging curves, career arcs, and contract timing effects. This would enable evaluation of how well contracts anticipate or lag performance.
+
+- **Incorporation of advanced analytics:** Integrating metrics such as Win Shares, Box Plus-Minus, RAPTOR, and LEBRON would provide more precise estimates of player impact beyond traditional box score measures. These metrics are widely used in professional analytics settings and would likely improve the validity of value-based measures.
+
+- **Player identifier standardization:** A future pipeline could use web scraping or NBA API endpoints to retrieve unique player IDs. This would eliminate the uncertainties associated with name-based merging and allow integration of more diverse datasets.
+
+- **Contextual variables:** Additional features such as usage rate, offensive/defensive role, team system, and injury reports would allow a richer modeling of performance. Salary does not fully reflect contributions such as off-ball gravity, defensive versatility, or leadership, which require more nuanced data.
+
+### Extensions in Feature Engineering
+
+Several improvements in derived metrics could enhance the evaluation of player value:
+
+- **Role-adjusted efficiency:** Incorporating usage rate would mitigate biases where high-usage players accumulate raw counting stats while low-usage players maintain high efficiency.
+
+- **Minute-weighted value:** Adjusting value indices by minute load could produce a more context-sensitive assessment of bench players.
+
+- **Injury-adjusted value:** Since injuries heavily influence salary-performance misalignment, incorporating games missed or availability metrics would improve the interpretability of value_index.
+
+- **Contract structure modeling:** Incorporating rookie-scale caps, veteran minimums, supermax eligibility, and luxury-tax implications would allow a more realistic evaluation of team payroll efficiency.
+
+### Extensions in Analytical Methods
+
+The following analytical methods represent promising extensions:
+
+- **Regression and predictive modeling:** Applying linear regression, lasso regression, tree-based models, or gradient boosting methods could quantify the extent to which different performance metrics predict salary. This could reveal which attributes NBA teams emphasize when determining compensation.
+
+- **Clustering analysis:** Grouping players by role, position, or performance profile could provide insight into role-specific value distributions. Clustering may reveal whether some positions or archetypes systematically outperform or underperform their salary expectations.
+
+- **Simulation-based analysis:** Monte Carlo methods could model uncertainty in future player performance, enabling estimates of expected value over contract duration.
+
+- **Team-level optimization:** Integrating team-level constraints such as cap space, tax penalties, and roster composition could support analyses of optimal roster construction based on value_index or other derived metrics.
+
+### Extensions in Visualization and Communication
+
+Further visualization improvements may include:
+
+- Time-series plots showing how value_index evolves across seasons  
+- Position-specific comparisons of salary efficiency  
+- Interactive dashboards (e.g., Plotly or Tableau) for exploring the dataset  
+- Heatmaps of team-level value distribution across roles and positions  
+
+These enhancements would allow a richer exploration of data patterns and make findings more accessible to broader audiences.
+
+### Summary
+
+In summary, the primary avenues for future work involve broadening the temporal scope, incorporating advanced analytics, integrating contextual variables, refining derived features, and expanding analytical methods. These extensions would deepen the understanding of the salary–performance relationship in the NBA and provide a more comprehensive framework for evaluating player value. Although the present work focuses on a single season due to the constraints of the available datasets, the reproducible and extensible structure of the project provides a strong foundation for future research in sports economics and performance analytics.
