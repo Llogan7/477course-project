@@ -105,9 +105,9 @@ No ethical issues arise: the dataset is public, non-sensitive sports data, and t
 
 Because the dataset lacks explicit redistribution permissions, we follow the strict IS477 rule:
 
-🚫 Raw salary file **not included in GitHub**  
-🚫 Raw salary file **not uploaded to Box**  
-✔ Only derived (transformed) data included  
+Raw salary file **not included in GitHub**  
+Raw salary file **not uploaded to Box**  
+Only derived (transformed) data included  
 
 This ensures full compliance with licensing constraints.
 
