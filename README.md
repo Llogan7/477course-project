@@ -461,6 +461,17 @@ The reproducible workflow consists of the following elements:
 
 Each step is documented below.
 
+Step 0 — Verify file integrity (SHA-256)
+
+A checksums.txt file is included in the repository root. After downloading the raw data,
+users may verify integrity using:
+
+    shasum -a 256 data/raw/performance_2022_2023.csv
+    shasum -a 256 data/raw/salaries.csv
+
+The resulting hashes should match those listed in checksums.txt.
+
+
 ### Step 1 — Download Required Raw Data
 
 #### 1.1 Performance Dataset (Redistributable)
@@ -495,7 +506,7 @@ The reproducibility of the workflow relies on maintaining the repository’s fol
 - `data/merged_data/` — merged intermediate dataset  
 - `nba_salary_value_analysis/data/processed/` — final feature-enhanced dataset  
 - `run_all/plots/` — all generated plots  
-- `run_all.ipynb` — automated pipeline notebook
+- `run_all/run_all.ipynb` — automated pipeline notebook
 
 Users must not alter this structure to ensure the workflow executes correctly.
 
@@ -520,7 +531,7 @@ Users may reapply these transformations in OpenRefine if desired, but this is no
 
 Open and run all cells in:
 
-run_all.ipynb
+run_all/run_all.ipynb
 
 
 The notebook performs the following tasks:
@@ -575,6 +586,21 @@ Users should install dependencies via:
 
 pip install -r requirements.txt
 
+In addition to the run_all.ipynb notebook, this project includes a Snakemake workflow
+that automates the entire pipeline from raw data to final outputs. 
+To execute the workflow, run:
+
+    snakemake --cores 1
+
+This will:
+- verify that the required raw datasets are present in data/raw/
+- execute the run_all/run_all.ipynb notebook
+- regenerate:
+    • data/merged_data/merged_salary_stats.csv
+    • nba_salary_value_analysis/data/processed/final_dataset.csv
+    • all visualizations in run_all/plots/
+
+The Snakemake rules are defined in the Snakefile located in the project root directory.
 
 ### Summary
 
