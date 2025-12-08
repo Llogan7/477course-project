@@ -51,3 +51,42 @@ Analytical findings include:
 
 We automated our full pipeline using `run_all.ipynb`, which performs cleaning, integration, feature engineering, and visualization. All plots generated are saved to:
 
+run_all/plots/
+
+
+Final datasets and derived files are uploaded to Box per Milestone 4 requirements:
+
+**Box folder:** https://uofi.app.box.com/folder/354747066623
+
+This project demonstrates the full IS477 Data Lifecycle and provides a transparent, ethically compliant example of end-to-end data curation and analysis.
+
+---
+
+# 2. Data Profile
+
+## Dataset 1: NBA Player Performance (2022–2023)
+
+- **Source:** https://www.kaggle.com/datasets/bryanchungweather/nba-players-data-2022-2023  
+- **License:** CC BY 4.0 (redistribution permitted)  
+- **Location:** `data/raw/performance_2022_2023.csv`
+
+The performance dataset contains per-game box score statistics for the 2022–2023 NBA season. Fields include minutes (MP), points (PTS), rebounds (REB), assists (AST), steals (STL), blocks (BLK), shooting percentages, and attempts. Data is complete and structurally clean, but still requires normalization.
+
+### Profiling Observations
+
+1. **Duplicates** — Many players traded mid-season appear multiple times.  
+2. **Missing values** — Shooting percentages missing when attempts = 0.  
+3. **Team inconsistencies** — Some teams represented differently across datasets.  
+4. **Schema robustness** — Numeric columns fall within realistic NBA bounds.
+
+### Cleaning and Transformation
+
+Cleaning was performed via OpenRefine:
+
+- Clustered and normalized player names  
+- Standardized capitalization  
+- Filled missing percentages with zeros  
+- Applied row selection rule for traded players  
+
+All steps are stored in:
+
