@@ -20,9 +20,9 @@ To answer this, we curated, cleaned, integrated, and analyzed two independently 
 
 The performance dataset, licensed under CC BY 4.0, is included in our repository exactly as provided. The salary dataset, however, is licensed under Kaggle’s “Other” terms without explicit redistribution permissions. Per IS477 Module 2 requirements, this prohibits us from storing or redistributing the raw salary file. Therefore:
 
-✔ We provide a link to the salary dataset  
-✔ We provide cleaning instructions  
-✔ We provide only *derived* salary outputs (legal to redistribute)  
+We provide a link to the salary dataset  
+We provide cleaning instructions  
+We provide only *derived* salary outputs (legal to redistribute)  
 
 Cleaning was conducted using a combination of **OpenRefine** and **Python**. Name cleaning, whitespace standardization, punctuation removal, and formatting transformations are preserved in two OpenRefine JSON histories:
 
