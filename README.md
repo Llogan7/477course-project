@@ -168,3 +168,151 @@ This metadata ensures that every transformation, filter, and derivation is trace
 ### Summary
 
 The two datasets used in this study differ significantly in schema, licensing, structure, and data quality. The performance dataset is relatively clean and fully redistributed, while the salary dataset contains the majority of the complexity in terms of licensing restrictions, formatting inconsistencies, and structural noise. This section documents the careful data profiling and compliance-based handling necessary to prepare both datasets for integration. Together, they form a robust and ethically curated foundation for investigating the salary–performance relationship in the NBA.
+
+## 3. Data Quality Assessment
+
+A rigorous data quality assessment is essential for ensuring that the integrated dataset accurately represents the 2022–2023 NBA season and supports valid analytical conclusions. Because the performance and salary datasets originate from separate authors and contain different schema conventions, formatting practices, and error patterns, substantial inspection and remediation were necessary before meaningful integration could occur. This section documents the primary data quality issues identified during profiling, the risks these issues pose for analysis, and the cleaning and validation measures taken to resolve them. All practices reflect IS477’s expectations for transparency, traceability, and reproducibility in data curation.
+
+### Overview of Quality Challenges
+
+The two datasets differ in several critical ways:
+
+- They have **no shared unique identifier**, requiring name-based merging.  
+- They exhibit **different naming conventions**, including punctuation, spacing, capitalization, and special characters.  
+- The salary dataset contains **currency formatting inconsistencies**, missing values, and multiple rows per player across multiple seasons.  
+- The performance dataset includes **duplicated players** due to mid-season trades.  
+- Each dataset exhibits **distinct patterns of missingness**.  
+- The salary dataset is governed by a restrictive license, constraining how its content may be used and redistributed.
+
+These differences necessitated a comprehensive, multi-stage quality assessment process.
+
+### Quality Assessment of the Performance Dataset
+
+The performance dataset is structurally consistent but contains several quality concerns:
+
+#### Duplicate Player Entries from Trades
+
+Because NBA players may be traded during a season, the dataset includes multiple rows for such players. Without correction, this duplication could distort statistical summaries and produce incorrect matches during integration.
+
+**Observed patterns:**
+- Players appear under multiple teams with varying games played.  
+- Aggregate performance metrics differ across rows, complicating selection.
+
+**Resolution strategy:**
+- Implemented a deterministic rule: retain the row corresponding to the team for which the player recorded the most games played.  
+- Ensures a consistent one-row-per-player structure.
+
+#### Missing or Zero-Value Fields
+
+Some players show missing values in metrics such as shooting percentages when no attempts were made.
+
+**Relevance:** Missing values propagate errors into derived efficiency calculations.
+
+**Resolution:**
+- Replaced missing percentage fields with zero in cases where attempts equal zero.  
+- This approach aligns with statistical conventions and prevents division-by-zero errors.
+
+#### Name Inconsistencies
+
+Player names may include periods, suffixes, hyphens, or inconsistent capitalization.
+
+**Risks:**
+- Failed merges  
+- Incorrect matches  
+- Inflated unmatched-player counts
+
+**Resolution:**
+- Applied OpenRefine clustering (key collision and nearest-neighbor) to normalize name formatting.  
+- All transformations documented in `Performance_history.json`.
+
+### Quality Assessment of the Salary Dataset
+
+The salary dataset required substantially more cleaning due to formatting inconsistencies, incomplete entries, and multi-year structure.
+
+#### Currency Formatting Errors
+
+Salary entries such as "$34,250,000" must be converted into numeric form for analysis.
+
+**Observed inconsistencies:**
+- Presence of commas, dollar signs, and whitespace  
+- Occasional missing or improperly formatted entries  
+
+**Resolution:**
+- Removed non-numeric characters and converted all values into integers.  
+- Standardized numeric salary field included in final datasets.
+
+#### Multi-Season Schema Complexity
+
+The dataset spans multiple seasons, and only 2022–2023 values are relevant.
+
+**Risks:**
+- Misalignment between salary season and performance season  
+- Inclusion of outdated or irrelevant information  
+
+**Resolution:**
+- Filtered dataset to retain only entries for the 2022–2023 season.  
+- Dropped unused fields to reduce noise and facilitate integration.
+
+#### Missing Salary Entries
+
+A subset of players lacked salary data entirely.
+
+**Resolution:**
+- These players were excluded from analyses requiring salary metrics.  
+- Documented the exclusion rationale for transparency.
+
+#### Name Mismatches with Performance Dataset
+
+The salary dataset exhibited inconsistent naming patterns (e.g., punctuation differences, initials, hyphenation).
+
+**Resolution:**
+- Applied OpenRefine clustering and manual review using `salaries_history.json`.  
+- Ensured alignment with the cleaned names from the performance dataset.
+
+### Integration-Level Quality Assessment
+
+The integration stage carries significant quality risks, given the absence of a shared identifier.
+
+#### Risk: Merge Errors Due to Name-Based Keys
+
+Even after cleaning, small inconsistencies could cause:
+- False negatives (missed matches)  
+- False positives (incorrect matches)  
+
+**Mitigation:**
+- Iterative matching diagnostics verifying one-to-one alignment  
+- Manual inspection of mismatched names  
+- Verification using summary counts before and after merging
+
+#### Risk: Non-Overlapping Records
+
+Some players exist in only one dataset (e.g., two-way players without recorded salaries or performance data).
+
+**Resolution:**
+- These players were logged and excluded from analyses requiring both salary and performance variables.
+
+### Validation of Derived Variables
+
+After integration, we assessed the integrity of derived features such as:
+- efficiency_index  
+- eff_per_min  
+- salary_million  
+- value_index  
+
+Validation steps included:
+- Checking for division-by-zero errors  
+- Testing for outlier inflation  
+- Ensuring monotonicity of numeric transformations  
+
+### Documentation and Provenance
+
+All cleaning steps are documented through:
+- OpenRefine JSON histories  
+- Python code in cleaning and integration cells of `run_all.ipynb`  
+- Stored intermediate datasets (`merged_salary_stats.csv`, `final_dataset.csv`)
+
+This ensures full reproducibility and compliance with IS477 transparency standards.
+
+### Summary
+
+The data quality assessment revealed several structural, semantic, and licensing-related challenges requiring extensive cleaning and validation. Through systematic normalization, careful filtering, deterministic row-selection strategies, and rigorous name reconciliation, we ensured that the integrated dataset accurately reflects player performance and salary conditions for the 2022–2023 season. The resulting dataset is both analytically robust and fully reproducible, forming a strong foundation for the findings presented in later sections.
