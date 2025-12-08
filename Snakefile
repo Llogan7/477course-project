@@ -29,6 +29,6 @@ rule run_all_notebook:
         MERGED_DATA,
         PLOTS
     shell:
-        """
-        jupyter nbconvert --to notebook --execute run_all.ipynb --output run_all_executed.ipynb
-        """
+    """
+    jupyter nbconvert --to notebook --execute run_all/run_all.ipynb --output run_all_executed.ipynb
+    """
