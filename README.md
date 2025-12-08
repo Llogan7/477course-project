@@ -90,3 +90,175 @@ Cleaning was performed via OpenRefine:
 
 All steps are stored in:
 
+data/cleaned_data/Performance_history.json
+
+
+No ethical issues arise: the dataset is public, non-sensitive sports data, and the license explicitly allows redistribution.
+
+---
+
+## Dataset 2: NBA Salary Dataset
+
+- **Source:** https://www.kaggle.com/datasets/omarsobhy14/nba-players-salaries  
+- **License:** Kaggle Other — redistribution *not* permitted  
+- **Location:** Must be downloaded manually per README instructions
+
+### Legal & Ethical Compliance
+
+Because the dataset lacks explicit redistribution permissions, we follow the strict IS477 rule:
+
+🚫 Raw salary file **not included in GitHub**  
+🚫 Raw salary file **not uploaded to Box**  
+✔ Only derived (transformed) data included  
+
+This ensures full compliance with licensing constraints.
+
+### Profiling Observations
+
+- Salary entries formatted as strings (“$34,250,000”)  
+- Multi-season structure; required filtering to 2022–2023  
+- Name inconsistencies  
+- A small number of missing or invalid entries  
+
+### Cleaning (OpenRefine + Python)
+
+- Removed `$` and `,`  
+- Converted salaries to integers  
+- Filtered to 2022–2023 season  
+- Normalized names by removing punctuation  
+- Removed unused seasons  
+
+Operation history saved in:
+
+data/cleaned_data/salaries_history.json
+
+
+---
+
+## Integrated Dataset
+
+The cleaned datasets were merged using standardized player names, producing:
+data/merged_data/merged_salary_stats.csv
+
+Final feature-enhanced dataset:
+nba_salary_value_analysis/data/processed/final_dataset.csv
+
+A detailed Data Dictionary for all 36 fields is included in:
+Data_Dictionary.md
+
+---
+
+# 3. Data Quality Assessment
+
+The quality assessment phase examined structural consistency, missingness, duplicates, schema compatibility, outliers, and the viability of integration via player names.
+
+## Performance Data Quality Issues
+
+### A. Duplicates from trades  
+A player may appear under multiple teams; retaining multiple rows would distort statistics.  
+**Resolution:** Kept only the row with the highest number of games played.
+
+### B. Missing percentages  
+When a player recorded zero attempts, shooting percentages were blank.  
+**Resolution:** Replaced with 0, consistent with statistical conventions.
+
+### C. Minor name inconsistencies  
+Differences in spacing, capitalization, or suffixes (e.g., “Jr.”).  
+**Resolution:** Normalized via OpenRefine clustering.
+
+---
+
+## Salary Data Quality Issues
+
+### A. Salary formatting inconsistencies  
+Values must be numeric for meaningful analysis.  
+**Resolution:** Removed `$` and `,` and converted to integers.
+
+### B. Multi-year schema  
+Original dataset spans several seasons.  
+**Resolution:** Filtered mechanism ensured only 2022–23 salaries included.
+
+### C. Name mismatches  
+Names such as “A.J. Lawson” vs “AJ Lawson.”  
+**Resolution:** OpenRefine clustering + manual review.
+
+### D. Missing salaries  
+Certain players lacked 2022–23 salary data.  
+**Resolution:** These players were removed from salary-related analysis.
+
+---
+
+## Integration Quality Risks
+
+### A. No universal player ID  
+The absence of a common identifier creates risk of false matches.  
+**Mitigation:** Thorough OpenRefine normalization + manual review.
+
+### B. Non-overlapping players  
+Some players exist only in one dataset.  
+**Mitigation:** Logged and excluded those from analyses requiring both salary and performance.
+
+### C. Outliers  
+Players on two-way contracts or on max deals create skew.  
+**Mitigation:** Outliers preserved but acknowledged analytically.
+
+---
+
+# 4. Findings
+
+Our analysis produced several insights into the salary–performance relationship.
+
+### 4.1 Salary vs Points Per Game  
+A moderate correlation exists: higher salaries generally correspond to higher scoring production, though with substantial variance.
+
+### 4.2 Salary vs Efficiency Per Minute  
+Scatterplots show wide dispersion; salary is a poor predictor of efficiency normalized by minutes played.
+
+### 4.3 Value Index Insights  
+Value Index reveals:
+
+- **Most undervalued players:**  
+  Dominated by players on rookie-scale or minimum contracts.
+
+- **Most overvalued players:**  
+  High-salary veterans with injury-reduced playing time.
+
+Plots stored in:
+run_all/plots/
+
+### 4.4 Team-Level Value  
+Teams such as BRK and MEM exhibit strong value efficiency; high-payroll teams cluster at the bottom.
+
+---
+
+# 5. Future Work
+
+Possible extensions:
+
+### A. Multi-season analysis  
+Longitudinal analysis could reveal contract lag effects.
+
+### B. Incorporate advanced analytics  
+Metrics like RAPTOR, LEBRON, BPM, and WS would improve accuracy.
+
+### C. Contextual modeling  
+Account for injuries, usage rate, defensive assignments.
+
+### D. Predictive modeling  
+Machine learning to forecast salary or value_index.
+
+### E. Payroll optimization  
+Simulate roster-building under salary-cap constraints.
+
+---
+
+# 6. Reproducibility Instructions
+
+### Step 1 — Download raw salary dataset
+Download manually:
+
+https://www.kaggle.com/datasets/omarsobhy14/nba-players-salaries
+
+Place into:
+
+
