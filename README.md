@@ -58,8 +58,6 @@ Final datasets and derived files are uploaded to Box per Milestone 4 requirement
 
 **Box folder:** https://uofi.app.box.com/folder/354747066623
 
-This project demonstrates the full IS477 Data Lifecycle and provides a transparent, ethically compliant example of end-to-end data curation and analysis.
-
 ---
 
 # 2. Data Profile
