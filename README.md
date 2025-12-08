@@ -316,3 +316,69 @@ This ensures full reproducibility and compliance with IS477 transparency standar
 ### Summary
 
 The data quality assessment revealed several structural, semantic, and licensing-related challenges requiring extensive cleaning and validation. Through systematic normalization, careful filtering, deterministic row-selection strategies, and rigorous name reconciliation, we ensured that the integrated dataset accurately reflects player performance and salary conditions for the 2022–2023 season. The resulting dataset is both analytically robust and fully reproducible, forming a strong foundation for the findings presented in later sections.
+
+## 4. Findings
+
+The integrated dataset and derived metrics enable an empirical examination of the relationship between salary and performance during the 2022–2023 NBA season. Our findings draw from both numerical analyses and visualizations generated through the automated workflow. The figures embedded in this section illustrate the distribution of salaries, the relationship strength between compensation and various performance metrics, and the identification of unusually undervalued or overvalued players based on efficiency-adjusted value measures.
+
+### Salary Distribution
+
+The salary distribution for the 2022–2023 season is heavily right-skewed, with a small number of players earning more than 30 million dollars and a large number clustered near the league minimum. This imbalance influences the correlation structure between salary and performance because a significant population of low-salary players exhibit highly variable productivity.
+
+![Salary Distribution](run_all/plots/salary_distribution.png)
+
+The distribution indicates that most players fall within the 1–8 million dollar range, while max-level contracts produce long tails. These properties highlight the need for normalization when evaluating value metrics.
+
+### Salary and Scoring Production
+
+A key question is whether higher salary corresponds to increased scoring output. Figure 2 demonstrates a moderate positive correlation between salary and points per game. Although high-salary players tend to score more, substantial variance exists, particularly among role players and emerging contributors on rookie contracts.
+
+![Salary vs Points](run_all/plots/salary_vs_pts.png)
+
+Players earning under 5 million dollars appear across a broad range of scoring outputs, showing that salary alone does not fully capture offensive productivity. The correlation is present but far from determinative.
+
+### Salary and Efficiency Metrics
+
+We next examine per-minute efficiency, a composite index derived from points, rebounds, and assists normalized by minutes played. This measure provides a more holistic perspective on productivity that accounts for opportunity and role.
+
+![Salary vs Efficiency per Minute](run_all/plots/salary_vs_eff_per_min.png)
+
+The relationship between salary and efficiency per minute is noticeably weaker compared to scoring. High-salary players do not consistently produce superior per-minute efficiency, indicating that salary may reward role prominence or historical reputation rather than current-season efficiency.
+
+### Identification of High-Value Players
+
+To evaluate performance relative to salary, we computed a value_index defined as efficiency per minute divided by salary in millions. This metric identifies players who generate significant production relative to their cost.
+
+![Top 10 Value Index](run_all/plots/top10_value_index.png)
+
+The top value_index performers are predominantly players on rookie-scale contracts or minimum-salary deals. These findings suggest that younger players and undervalued role contributors provide disproportionate returns per dollar spent.
+
+### Identification of Low-Value Players
+
+Conversely, several high-salary veterans produced low efficiency relative to their compensation. This often results from reduced playing time due to injuries, age-related decline, or mismatches between contract timing and current-season performance.
+
+![Bottom 10 Value Index](run_all/plots/bottom10_value_index.png)
+
+The presence of multiple high-salary players in the lower tier reinforces the observation that salary structures do not uniformly reflect present-day productivity.
+
+### Additional Efficiency Perspectives
+
+To further contextualize value relative to playing time, we examined top and bottom performers in pure efficiency-per-minute terms.
+
+![Top 10 Efficiency per Minute](run_all/plots/top10_eff_per_min.png)
+
+![Bottom 10 Efficiency per Minute](run_all/plots/bottom10_eff_per_min.png)
+
+These charts reveal that several highly efficient players do not have correspondingly high salaries, further demonstrating contract lag and market inefficiency.
+
+### Team-Level Insights
+
+To assess whether certain teams systematically outperform or underperform the league in terms of salary efficiency, we computed the average value_index at the team level.
+
+![Team Average Value Index](run_all/plots/team_average_value_index.png)
+
+Teams such as Brooklyn and Memphis exhibited significantly above-average salary value efficiency, while several high-payroll contenders ranked lower. This suggests that roster construction strategies and development pipelines play substantial roles in determining salary efficiency.
+
+### Summary of Findings
+
+Overall, the findings show that while salary exhibits a moderate positive relationship with scoring, its correlation with broader efficiency measures is weak. Value-based metrics consistently identify low-salary players as the highest contributors per dollar spent, while several high-salary veterans produce relatively low returns. These results underscore the incomplete alignment between NBA salaries and on-court productivity and highlight the usefulness of efficiency-normalized value measures for understanding contract performance.
