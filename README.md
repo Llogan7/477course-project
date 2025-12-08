@@ -579,3 +579,76 @@ pip install -r requirements.txt
 ### Summary
 
 By following the steps outlined above—downloading the salary dataset, maintaining repository structure, reviewing cleaning histories, executing the `run_all.ipynb` pipeline, and consulting the Box folder—any user can reproduce our full analysis, from raw data to final visualizations. This reproducibility aligns with IS477 standards for transparency, accuracy, and workflow documentation.
+
+## 7. References
+
+This section provides formal citations for all datasets, tools, and software packages used in this project. Citations are formatted to align with the expectations of IS477 for transparency, attribution, and compliance with licensing requirements. Because the project relies on third-party data sources with different licensing restrictions, these references also document the specific licenses that govern use and redistribution.
+
+### 7.1 Dataset References
+
+**Performance Dataset (Redistributable)**  
+Bryan Chung. *NBA Players Data (2022–2023 Season).* Kaggle.  
+Available at: https://www.kaggle.com/datasets/bryanchungweather/nba-players-data-2022-2023  
+License: Creative Commons Attribution 4.0 (CC BY 4.0).  
+This dataset includes per-game statistics for all NBA players during the 2022–2023 season. Because the license permits redistribution with attribution, the raw file is included within this repository at `data/raw/performance_2022_2023.csv`.
+
+**Salary Dataset (Not Redistributable)**  
+Omar Sobhy. *NBA Players Salaries.* Kaggle.  
+Available at: https://www.kaggle.com/datasets/omarsobhy14/nba-players-salaries  
+License: “Other” (unspecified). Redistribution not permitted.  
+In compliance with IS477 licensing constraints, the raw dataset is not included in this repository. Users must download it directly from Kaggle and place it in `data/raw/salaries.csv`. All derived outputs (e.g., cleaned salary fields, integrated datasets) included in this repository contain only non-substitutable transformed values and thus do not violate license terms.
+
+### 7.2 Software and Tooling References
+
+**OpenRefine (Version 3.x)**  
+OpenRefine was used for interactive data cleaning, clustering, and name standardization.  
+Documentation: https://openrefine.org/docs/  
+Operation history files (JSON) are included in:  
+- `data/cleaned_data/Performance_history.json`  
+- `data/cleaned_data/salaries_history.json`
+
+**Python Libraries**  
+The following libraries were used for data analysis, cleaning, visualization, and feature engineering. Exact versions are documented in `requirements.txt`.
+
+- *pandas* — Data manipulation and cleaning  
+  Documentation: https://pandas.pydata.org/  
+
+- *numpy* — Numerical computation  
+  Documentation: https://numpy.org/  
+
+- *matplotlib* — Visualization  
+  Documentation: https://matplotlib.org/  
+
+- *seaborn* — Statistical visualization  
+  Documentation: https://seaborn.pydata.org/  
+
+- *scikit-learn* — Utility functions and preprocessing tools  
+  Documentation: https://scikit-learn.org/  
+
+- *jupyter / notebook* — Execution environment for the automated pipeline  
+  Documentation: https://jupyter.org/
+
+### 7.3 Workflow and Automation References
+
+**Jupyter Notebook Execution**  
+`run_all.ipynb` provides the end-to-end automation pipeline.  
+Documentation: https://jupyter-notebook.readthedocs.io/
+
+**Box Cloud Storage**  
+Final output artifacts were stored in Box as required for Milestone 4.  
+Access link: https://uofi.app.box.com/folder/354747066623
+
+### 7.4 Course and Lifecycle References
+
+University of Illinois Urbana-Champaign, School of Information Sciences.  
+*IS 477: Data Management, Curation & Reproducibility – Course Materials.*  
+Referenced for data lifecycle principles, licensing frameworks, cleaning standards, FAIR principles, and reproducible workflow requirements.
+
+### 7.5 Additional Conceptual References
+
+Basketball Reference and NBA statistics standards were used for interpreting domain conventions such as shooting percentages, efficiency calculations, and player categorization.  
+Domain guidelines: https://www.basketball-reference.com/
+
+### Summary
+
+These references collectively document the data sources, software tools, and methodological frameworks used throughout the project. Together, they provide the transparency and citation accuracy required for full reproducibility and compliance under Milestone 4 evaluation criteria.
