@@ -1,0 +1,9 @@
+# SHA-256 checksums for raw datasets
+
+# Performance dataset (redistributable)
+# File: data/raw/performance_2022_2023.csv
+SHA256(data/raw/performance_2022_2023.csv)= 7aff8bb42cc24317e836710d08c763ae401347b45c2ba43ed996602d58084746
+
+# Salary dataset (Kaggle Other license, not redistributed)
+# File: data/raw/salaries.csv
+SHA256(data/raw/salaries.csv)= 31229f8cbcb625a888da9ab76aa387135d876ee28f0856bd5a7fa1236486d4e4
