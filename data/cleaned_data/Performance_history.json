@@ -1,0 +1,212 @@
+[
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "Pos",
+    "newColumnName": "Position",
+    "description": "Rename column Pos to Position"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "Player",
+    "newColumnName": "Player Name",
+    "description": "Rename column Player to Player Name"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "Tm",
+    "newColumnName": "Team",
+    "description": "Rename column Tm to Team"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "G",
+    "newColumnName": "Games Played",
+    "description": "Rename column G to Games Played"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "GS",
+    "newColumnName": "Games Started",
+    "description": "Rename column GS to Games Started"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "MP",
+    "newColumnName": "Minutes Played Per Game",
+    "description": "Rename column MP to Minutes Played Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "FG",
+    "newColumnName": "Field Goals Per Game",
+    "description": "Rename column FG to Field Goals Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "FGA",
+    "newColumnName": "Field Goal Attempts Per Game",
+    "description": "Rename column FGA to Field Goal Attempts Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "FG%",
+    "newColumnName": "Field Goal Percentage",
+    "description": "Rename column FG% to Field Goal Percentage"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "3P",
+    "newColumnName": "3-Point Field Goals Per Game",
+    "description": "Rename column 3P to 3-Point Field Goals Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "3PA",
+    "newColumnName": "3-Point Field Goal Attempts Per Game",
+    "description": "Rename column 3PA to 3-Point Field Goal Attempts Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "3P%",
+    "newColumnName": "3-Point Field Goal Percentage",
+    "description": "Rename column 3P% to 3-Point Field Goal Percentage"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "2P",
+    "newColumnName": "2-Point Field Goals Per Game",
+    "description": "Rename column 2P to 2-Point Field Goals Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "2PA",
+    "newColumnName": "2-Point Field Goal Attempts Per Game",
+    "description": "Rename column 2PA to 2-Point Field Goal Attempts Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "2P%",
+    "newColumnName": "2-Point Field Goal Percentage",
+    "description": "Rename column 2P% to 2-Point Field Goal Percentage"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "eFG%",
+    "newColumnName": "Effective Field Goal Percentage",
+    "description": "Rename column eFG% to Effective Field Goal Percentage"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "FT",
+    "newColumnName": "Free Throws Per Game",
+    "description": "Rename column FT to Free Throws Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "FTA",
+    "newColumnName": "Free Throw Attempts Per Game",
+    "description": "Rename column FTA to Free Throw Attempts Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "FT%",
+    "newColumnName": "Free Throw Percentage",
+    "description": "Rename column FT% to Free Throw Percentage"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "ORB",
+    "newColumnName": "Offensive Rebounds Per Game",
+    "description": "Rename column ORB to Offensive Rebounds Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "DRB",
+    "newColumnName": "Defensive Rebounds Per Game",
+    "description": "Rename column DRB to Defensive Rebounds Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "TRB",
+    "newColumnName": "Total Rebounds Per Game",
+    "description": "Rename column TRB to Total Rebounds Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "AST",
+    "newColumnName": "Assists Per Game",
+    "description": "Rename column AST to Assists Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "STL",
+    "newColumnName": "Steals Per Game",
+    "description": "Rename column STL to Steals Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "BLK",
+    "newColumnName": "Blocks Per Game",
+    "description": "Rename column BLK to Blocks Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "TOV",
+    "newColumnName": "Turnovers Per Game",
+    "description": "Rename column TOV to Turnovers Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "PF",
+    "newColumnName": "Personal Fouls Per Game",
+    "description": "Rename column PF to Personal Fouls Per Game"
+  },
+  {
+    "op": "core/column-rename",
+    "oldColumnName": "PTS",
+    "newColumnName": "Points Per Game",
+    "description": "Rename column PTS to Points Per Game"
+  },
+  {
+    "op": "core/row-star",
+    "engineConfig": {
+      "facets": [
+        {
+          "type": "list",
+          "name": "Player Name",
+          "expression": "value",
+          "columnName": "Player Name",
+          "invert": false,
+          "omitBlank": false,
+          "omitError": false,
+          "selection": [
+            {
+              "v": {
+                "v": "A.J. Lawson",
+                "l": "A.J. Lawson"
+              }
+            }
+          ],
+          "selectBlank": false,
+          "selectError": false
+        }
+      ],
+      "mode": "row-based"
+    },
+    "starred": true,
+    "description": "Star rows"
+  },
+  {
+    "op": "core/text-transform",
+    "engineConfig": {
+      "facets": [],
+      "mode": "row-based"
+    },
+    "columnName": "Player Name",
+    "expression": "grel:value.replace(/\\./,\"\").replace(/-/,\" \").replace(/\\s+/,\" \").trim()",
+    "onError": "keep-original",
+    "repeat": false,
+    "repeatCount": 10,
+    "description": "Text transform on cells in column Player Name using expression grel:value.replace(/\\./,\"\").replace(/-/,\" \").replace(/\\s+/,\" \").trim()"
+  }
+]
