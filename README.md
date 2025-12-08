@@ -1,10 +1,8 @@
-# 🏀 NBA Salary–Performance Analysis (2022–2023 Season)
-
-A fully reproducible data curation and analysis project following the IS477 Data Science Lifecycle.
+# NBA Salary–Performance Analysis (2022–2023 Season)
 
 ---
 
-## 👥 Contributors
+## Contributors
 - **Jezzy Jia (ziyijia2)** — Data acquisition, licensing review, OpenRefine cleaning, name normalization, integration workflow design  
 - **Logan Li (jiajun7)** — Feature engineering, exploratory/statistical analysis, visualization design, automated pipeline (run_all.ipynb), documentation
 
