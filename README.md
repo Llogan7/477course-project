@@ -68,6 +68,8 @@ The Summary section of this project demonstrates the full alignment of our workf
 
 This project uses two independently authored datasets sourced from Kaggle: one containing detailed NBA player performance statistics for the 2022–2023 regular season and another containing multi-season salary information. Because the datasets originate from different authors, formats, and licensing schemes, they require careful assessment before cleaning, integration, and analysis. This section provides a comprehensive description of each dataset, its licensing constraints, structural characteristics, and the rationale guiding our curation decisions. The goal is to document not only what the data contains but also how its structure, permissions, and limitations shape the analytical workflow.
 
+SHA-256 checksums for raw datasets are provided in: checksums.txt
+
 ### Dataset 1: NBA Player Performance (2022–2023)
 
 **Source:**  
@@ -115,6 +117,8 @@ Kaggle “Other” License – no redistribution permitted.
 
 **Required Local Storage Path (Not Included in Repo):**  
 `data/raw/salaries.csv`
+The salary dataset is not included in GitHub or Box due to license restrictions.
+
 
 This dataset provides salary values for NBA players across multiple seasons. It requires substantial cleaning and restructuring to isolate the salaries relevant to the 2022–2023 season. The dataset cannot be redistributed in raw form, so users must download it manually following the instructions in this README. All derived outputs, aggregated data, and visualizations built from the salary data are permissible to share.
 
